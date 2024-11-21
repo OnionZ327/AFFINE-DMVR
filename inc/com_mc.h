@@ -69,7 +69,7 @@ extern COM_DMVR_MC_C ifvc_tbl_dmvr_mc_c[2][2];
 #endif
 
 #if AFFINE_DMVR
-typedef void (*COM_AFFINE_MC_L) (pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth);
+typedef void (*COM_AFFINE_MC_L) (pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth, int pre_int_search_flag);
 
 extern COM_AFFINE_MC_L com_tbl_affine_mc_l[2][2];
 #endif
