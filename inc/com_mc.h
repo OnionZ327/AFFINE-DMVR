@@ -75,9 +75,9 @@ extern COM_AFFINE_MC_L com_tbl_affine_mc_l[2][2];
 #endif
 
 #if AFFINE_DMVR
-#define com_affien_mc_l_hp(ori_mv_x, ori_mv_y, ref, gmv_x, gmv_y, s_ref, s_pred, pred, w, h, bit_depth) \
+#define com_affien_mc_l_hp(ori_mv_x, ori_mv_y, ref, gmv_x, gmv_y, s_ref, s_pred, pred, w, h, bit_depth, pre_int_search_flag) \
     (com_tbl_affine_mc_l[(ori_mv_x & 0xF)?1:0][(ori_mv_y & 0xF)?1:0])\
-        (ref, gmv_x, gmv_y, s_ref, s_pred, pred, w, h, bit_depth)
+        (ref, gmv_x, gmv_y, s_ref, s_pred, pred, w, h, bit_depth, pre_int_search_flag)
 #endif
 #if DMVR
 #define com_mc_l_hp(ori_mv_x, ori_mv_y, ref, gmv_x, gmv_y, s_ref, s_pred, pred, w, h, bit_depth) \

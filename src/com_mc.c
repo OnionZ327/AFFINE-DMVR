@@ -4273,16 +4273,21 @@ void com_mc_l_nn(s16 *ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s16 *pre
 }
 
 #if AFFINE_DMVR
-void com_affine_mc_l_00(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth)
+void com_affine_mc_l_00(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth, int pre_int_search_flag)
 {
     int i, j;
     gmv_x >>= 4;
     gmv_y >>= 4;
-#if AFFINE_DMVR_PRE
-    ref += (gmv_y - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x - AFFINE_DMVR_ITER_COUNT);
-#else
-    ref += (gmv_y) * s_ref + (gmv_x);
-#endif
+
+    if (pre_int_search_flag)
+    {
+        ref += (gmv_y - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x - AFFINE_DMVR_ITER_COUNT);
+    }
+    else 
+    {
+        ref += (gmv_y)*s_ref + (gmv_x);
+    }
+
 #if SIMD_MC
     if (((w & 0x7) == 0) && ((h & 1) == 0))
     {
@@ -4329,7 +4334,7 @@ void com_affine_mc_l_00(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
     }
 }
 
-void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth)
+void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth, int pre_int_search_flag)
 {
     int max = ((1 << bit_depth) - 1);
     int min = 0;
@@ -4337,11 +4342,14 @@ void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
     dx = gmv_x & 15;
 #if AFFINE_DMVR_2TAP    
     const s16* coeff_hor = tbl_affine_mc_l_coeff_hp_2tap[dx];
-#if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
-#else
-    ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
-#endif
+    if (pre_int_search_flag)
+    {
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+    }
+    else
+    {
+        ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
+    }
     mc_filter_l_2tap_horiz_clip_sse(ref, s_ref, pred, s_pred, coeff_hor, w, h, min, max, 1);
 #else
 #if IF_LUMA12_CHROMA6
@@ -4371,7 +4379,7 @@ void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
 #endif
 }
 
-void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth)
+void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, pel* pred, int w, int h, int bit_depth, int pre_int_search_flag)
 {
     int max = ((1 << bit_depth) - 1);
     int min = 0;
@@ -4379,11 +4387,14 @@ void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
     dy = gmv_y & 15;
 #if AFFINE_DMVR_2TAP    
     const s16* coeff_ver = tbl_affine_mc_l_coeff_hp_2tap[dy];
-#if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
-#else
-    ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
-#endif
+    if (pre_int_search_flag)
+    {
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+    }
+    else
+    {
+        ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
+    }
     mc_filter_l_2tap_vert_clip_sse(ref, s_ref, pred, s_pred, coeff_ver, w, h, min, max, 1);
 #else
 #if IF_LUMA12_CHROMA6
@@ -4413,7 +4424,7 @@ void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
 #endif
 }
 
-void com_affine_mc_l_nn(s16* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s16* pred, int w, int h, int bit_depth)
+void com_affine_mc_l_nn(s16* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s16* pred, int w, int h, int bit_depth, int pre_int_search_flag)
 {
     int max = ((1 << bit_depth) - 1);
     int min = 0;
@@ -4423,11 +4434,15 @@ void com_affine_mc_l_nn(s16* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s
 #if AFFINE_DMVR_2TAP
     const s16* coeff_hor = tbl_affine_mc_l_coeff_hp_2tap[dx];
     const s16* coeff_ver = tbl_affine_mc_l_coeff_hp_2tap[dy];
-#if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
-#else
-    ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
-#endif
+    if (pre_int_search_flag)
+    {
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+    }
+    else
+    {
+        ref += (gmv_y >> 4) * s_ref + (gmv_x >> 4);
+    }
+
     s16* buf = (s16*)malloc(w * (h + 1) * sizeof(s16));
     mc_filter_l_2tap_horiz_clip_sse(ref, s_ref, buf, w, coeff_hor, w, h + 1, min, max, 0);
     mc_filter_l_2tap_vert_clip_sse(buf, w, pred, s_pred, coeff_ver, w, h, min, max, 1);
@@ -7275,7 +7290,7 @@ void com_affine_dmvr_pre_mc_lc(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP
             qpel_gmv_x = ((x + w) << 4) + mv_scale_tmp_hor;
             qpel_gmv_y = ((y + h) << 4) + mv_scale_tmp_ver;
 #if AFFINE_DMVR_2TAP
-            com_affien_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, AFFINE_DMVR_PAD_BUFFER_WIDTH, (pred + w + w / sub_w * AFFINE_DMVR_PRE_PAD_WIDTH), sub_w + AFFINE_DMVR_PRE_PAD_WIDTH, sub_h + AFFINE_DMVR_PRE_PAD_HEIGHT, bit_depth);
+            com_affien_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, AFFINE_DMVR_PAD_BUFFER_WIDTH, (pred + w + w / sub_w * AFFINE_DMVR_PRE_PAD_WIDTH), sub_w + AFFINE_DMVR_PRE_PAD_WIDTH, sub_h + AFFINE_DMVR_PRE_PAD_HEIGHT, bit_depth, 1);
 #else
             com_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, AFFINE_DMVR_PAD_BUFFER_WIDTH, (pred + w + w / sub_w * AFFINE_DMVR_PRE_PAD_WIDTH), sub_w + AFFINE_DMVR_PRE_PAD_WIDTH, sub_h + AFFINE_DMVR_PRE_PAD_HEIGHT, bit_depth);
 #endif
@@ -7369,7 +7384,7 @@ void com_affine_dmvr_mc_lc(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*re
             qpel_gmv_x = ((x + w) << 4) + mv_scale_tmp_hor;
             qpel_gmv_y = ((y + h) << 4) + mv_scale_tmp_ver;
 #if AFFINE_DMVR_2TAP
-            com_affien_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, cu_width, (pred + w), sub_w, sub_h, bit_depth);
+            com_affien_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, cu_width, (pred + w), sub_w, sub_h, bit_depth, 0);
 #else
             com_mc_l_hp(mv_scale_tmp_hor_ori, mv_scale_tmp_ver_ori, ref_pic->y, qpel_gmv_x, qpel_gmv_y, ref_pic->stride_luma, cu_width, (pred + w), sub_w, sub_h, bit_depth);
 #endif

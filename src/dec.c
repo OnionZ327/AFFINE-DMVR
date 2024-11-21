@@ -52,7 +52,7 @@
     com_assert_rv((id), (ret)); \
     (ctx) = (DEC_CTX *)id; \
     com_assert_rv((ctx)->magic == DEC_MAGIC_CODE, (ret));
-
+int frame;
 static DEC_CTX * ctx_alloc(void)
 {
     DEC_CTX * ctx;
@@ -2545,6 +2545,11 @@ int dec_alf_avs2(DEC_CTX * ctx, COM_PIC *pic_rec)
 
 int dec_pic(DEC_CTX * ctx, DEC_CORE * core, COM_SQH *sqh, COM_PIC_HEADER * ph, COM_SH_EXT * shext)
 {
+    frame++;
+    if (frame == 84)
+    {
+        frame = frame;
+    }
     COM_BSR   * bs;
     DEC_SBAC  * sbac;
     int         ret;

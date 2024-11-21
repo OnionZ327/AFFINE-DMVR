@@ -40,9 +40,9 @@
 #if AFFINE_DMVR
 #define AFFINE_DMVR_ITER_COUNT             4//像素搜索次数
 #define AFFINE_DMVR_2TAP                   1//2-tap插值开关
-#define AFFINE_DMVR_HALF_SEARCH            0//半像素搜索开关
-#define AFFINE_DMVR_QUARTER_SEARCH         0//1/4像素搜索开关
-#define AFFINE_DMVR_PRE                    0//预插值开关
+#define AFFINE_DMVR_HALF_SEARCH            1//半像素搜索开关
+#define AFFINE_DMVR_QUARTER_SEARCH         1//1/4像素搜索开关
+#define AFFINE_DMVR_PRE                    1//预插值开关
 #if !AFFINE_DMVR_PRE
 #define AFFINE_SEARCH_STEP                 2//2->1/4, 4->1
 #endif
