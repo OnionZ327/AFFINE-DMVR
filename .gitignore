@@ -246,3 +246,4 @@ _Pvt_Extensions
 /build/x86_windows/*.filters
 /cfg
 /test
+/build_cmake
