@@ -4281,7 +4281,7 @@ void com_affine_mc_l_00(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
 
     if (pre_int_search_flag)
     {
-        ref += (gmv_y - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x - AFFINE_DMVR_ITER_COUNT);
+        ref += (gmv_y - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x - AFFINE_DMVR_SEARCH_RANGE);
     }
     else 
     {
@@ -4344,7 +4344,7 @@ void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
     const s16* coeff_hor = tbl_affine_mc_l_coeff_hp_2tap[dx];
     if (pre_int_search_flag)
     {
-        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_SEARCH_RANGE;
     }
     else
     {
@@ -4358,13 +4358,13 @@ void com_affine_mc_l_n0(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
 
 #if IF_LUMA12_CHROMA6
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - offset - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - offset - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4)) * s_ref + (gmv_x >> 4) - offset;
 #endif
 #else
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - 3 - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - 3 - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4)) * s_ref + (gmv_x >> 4) - 3;
 #endif
@@ -4389,7 +4389,7 @@ void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
     const s16* coeff_ver = tbl_affine_mc_l_coeff_hp_2tap[dy];
     if (pre_int_search_flag)
     {
-        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_SEARCH_RANGE;
     }
     else
     {
@@ -4403,13 +4403,13 @@ void com_affine_mc_l_0n(pel* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, p
 
 #if IF_LUMA12_CHROMA6
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - offset - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - offset - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4) - offset) * s_ref + (gmv_x >> 4);
 #endif
 #else
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - 3 - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - 3 - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4) - 3) * s_ref + (gmv_x >> 4);
 #endif
@@ -4436,7 +4436,7 @@ void com_affine_mc_l_nn(s16* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s
     const s16* coeff_ver = tbl_affine_mc_l_coeff_hp_2tap[dy];
     if (pre_int_search_flag)
     {
-        ref += ((gmv_y >> 4) - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_ITER_COUNT;
+        ref += ((gmv_y >> 4) - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - AFFINE_DMVR_SEARCH_RANGE;
     }
     else
     {
@@ -4459,13 +4459,13 @@ void com_affine_mc_l_nn(s16* ref, int gmv_x, int gmv_y, int s_ref, int s_pred, s
 
 #if IF_LUMA12_CHROMA6
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - offset - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - offset - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - offset - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - offset - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4) - offset) * s_ref + (gmv_x >> 4) - offset;
 #endif
 #else
 #if AFFINE_DMVR_PRE
-    ref += ((gmv_y >> 4) - 3 - AFFINE_DMVR_ITER_COUNT) * s_ref + (gmv_x >> 4) - 3 - AFFINE_DMVR_ITER_COUNT;
+    ref += ((gmv_y >> 4) - 3 - AFFINE_DMVR_SEARCH_RANGE) * s_ref + (gmv_x >> 4) - 3 - AFFINE_DMVR_SEARCH_RANGE;
 #else
     ref += ((gmv_y >> 4) - 3) * s_ref + (gmv_x >> 4) - 3;
 #endif
@@ -7457,16 +7457,20 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
     int min_cost = INT_MAX;
     SAD_POINT_INDEX idx;
     //ÖÐÉÏ×óÓÒÏÂ
-    s32 search_offset_x[5] = { 0, 0, -1, 1, 0 };
-    s32 search_offset_y[5] = { 0, -1, 0, 0, 1 };
+    int search_offset_x[5] = { 0, 0, -1, 1, 0 };
+    int search_offset_y[5] = { 0, -1, 0, 0, 1 };
 
-    s32 search_square_offset_x[9] = { 0, 0, 0, -1, 1, -1, 1, -1, 1 };
-    s32 search_square_offset_y[9] = { 0, -1, 1, 0, 0, -1, -1, 1, 1 };
+    int search_square_offset_x[9] = { 0, 0, 0, -1, 1, -1, 1, -1, 1 };
+    int search_square_offset_y[9] = { 0, -1, 1, 0, 0, -1, -1, 1, 1 };
 
-    s32 delta_mvx = 0;
-    s32 delta_mvy = 0;
-    s32 delta_x = 0;
-    s32 delta_y = 0;
+    int delta_mvx = 0;
+    int delta_mvy = 0;
+    int delta_x = 0;
+    int delta_y = 0;
+
+    int search_range_x = 0;
+    int search_range_y = 0;
+
     s32 cost_temp[2][2] = { { 0, INT_MAX},
     { 0, INT_MAX} };
     int dir = 0;
@@ -7570,6 +7574,20 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
             break;
         }
 #endif
+        search_range_x = (delta_x + search_offset_x[dir]) >> (4 - AFFINE_SEARCH_STEP);
+        search_range_y = (delta_y + search_offset_y[dir]) >> (4 - AFFINE_SEARCH_STEP);
+        if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
+        {
+            if (cost_temp[1][0])
+            {
+                min_cost = cost_temp[0][1];
+            }
+            else
+            {
+                min_cost = center_cost;
+            }
+            break;
+        }
         delta_x += search_offset_x[dir];
         delta_y += search_offset_y[dir];
         affine_dmvr_iter_count++;
@@ -7589,8 +7607,8 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
     }
     pel* preds_centre_array[REFP_NUM];
 
-    preds_centre_array[REFP_0] = affine_dmvr_pre_y[REFP_0] + AFFINE_DMVR_ITER_COUNT * (AFFINE_DMVR_PAD_BUFFER_WIDTH + 1);
-    preds_centre_array[REFP_1] = affine_dmvr_pre_y[REFP_1] + AFFINE_DMVR_ITER_COUNT * (AFFINE_DMVR_PAD_BUFFER_WIDTH + 1);
+    preds_centre_array[REFP_0] = affine_dmvr_pre_y[REFP_0] + AFFINE_DMVR_SEARCH_RANGE * (AFFINE_DMVR_PAD_BUFFER_WIDTH + 1);
+    preds_centre_array[REFP_1] = affine_dmvr_pre_y[REFP_1] + AFFINE_DMVR_SEARCH_RANGE * (AFFINE_DMVR_PAD_BUFFER_WIDTH + 1);
     pel* ref_0;
     pel* ref_1;
     while (1)
@@ -7670,6 +7688,20 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
             break;
         }
 #endif
+        search_range_x = (delta_x + search_offset_x[dir]);
+        search_range_y = (delta_y + search_offset_y[dir]);
+        if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
+        {
+            if (cost_temp[1][0])
+            {
+                min_cost = cost_temp[0][1];
+            }
+            else
+            {
+                min_cost = center_cost;
+            }
+            break;
+        }
         delta_x += search_offset_x[dir];
         delta_y += search_offset_y[dir];
         affine_dmvr_iter_count++;
@@ -7701,6 +7733,7 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
         }
     }
 #if AFFINE_DMVR_HALF_SEARCH
+    center_cost = min_cost;
     if (delta_mvx != 0 || delta_mvy != 0)
     {
         for (int i = 0; i < REFP_NUM; i++)

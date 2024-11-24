@@ -39,6 +39,7 @@
 
 #if AFFINE_DMVR
 #define AFFINE_DMVR_ITER_COUNT             4//ÏñËØËÑË÷´ÎÊý
+#define AFFINE_DMVR_SEARCH_RANGE           4//ËÑË÷·¶Î§
 #define AFFINE_DMVR_2TAP                   1//2-tap²åÖµ¿ª¹Ø
 #define AFFINE_DMVR_HALF_SEARCH            1//°ëÏñËØËÑË÷¿ª¹Ø
 #define AFFINE_DMVR_QUARTER_SEARCH         1//1/4ÏñËØËÑË÷¿ª¹Ø
@@ -2726,8 +2727,8 @@ typedef enum _AWP_ANGLE_RATIO
 
 
 #if AFFINE_DMVR_PRE
-#define AFFINE_DMVR_PRE_PAD_WIDTH                       (AFFINE_DMVR_ITER_COUNT & 3 ? ((AFFINE_DMVR_ITER_COUNT >> 2) + 1) << 2 : AFFINE_DMVR_ITER_COUNT) * 2
-#define AFFINE_DMVR_PRE_PAD_HEIGHT                      (2 * AFFINE_DMVR_ITER_COUNT)
+#define AFFINE_DMVR_PRE_PAD_WIDTH                       (AFFINE_DMVR_SEARCH_RANGE & 3 ? ((AFFINE_DMVR_SEARCH_RANGE >> 2) + 1) << 2 : AFFINE_DMVR_SEARCH_RANGE) * 2
+#define AFFINE_DMVR_PRE_PAD_HEIGHT                      (2 * AFFINE_DMVR_SEARCH_RANGE)
 #define AFFINE_DMVR_PAD_BUFFER_WIDTH                    (MAX_CU_SIZE + (MAX_CU_SIZE >> 3) * AFFINE_DMVR_PRE_PAD_WIDTH)
 #define AFFINE_DMVR_PAD_BUFFER_HEIGHT                   (MAX_CU_SIZE + (MAX_CU_SIZE >> 3) * AFFINE_DMVR_PRE_PAD_HEIGHT)
 #endif
