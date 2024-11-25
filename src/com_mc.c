@@ -7489,8 +7489,8 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
                     continue;
                 }
             }
-            search_range_x = (delta_x + search_offset_x[idx]) >> (4 - AFFINE_SEARCH_STEP);
-            search_range_y = (delta_y + search_offset_y[idx]) >> (4 - AFFINE_SEARCH_STEP);
+            search_range_x = abs((delta_x + search_offset_x[idx]) >> (4 - AFFINE_SEARCH_STEP));
+            search_range_y = abs((delta_y + search_offset_y[idx]) >> (4 - AFFINE_SEARCH_STEP));
             if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
             {
                 continue;
@@ -7615,8 +7615,8 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
                     continue;
                 }
             }
-            search_range_x = (delta_x + search_offset_x[idx]);
-            search_range_y = (delta_y + search_offset_y[idx]);
+            search_range_x = abs((delta_x + search_offset_x[idx]));
+            search_range_y = abs((delta_y + search_offset_y[idx]));
             if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
             {
                 continue;
@@ -7822,22 +7822,12 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
         }
         if (AFFINE_DMVR_memory_access(mod_info_curr, cu_width, cu_height, refined_mv))
         {
-            delta_mvx = (search_square_offset_x[dir] << 3);
-            delta_mvy = (search_square_offset_y[dir] << 3);
             for (int i = 0; i < REFP_NUM; i++)
             {
                 for (int ver = 0; ver < cp_num; ver++)
                 {
-                    if (i == 0)
-                    {
-                        mv[i][ver][MV_X] = initial_mv[i][ver][MV_X] + delta_mvx;
-                        mv[i][ver][MV_Y] = initial_mv[i][ver][MV_Y] + delta_mvy;
-                    }
-                    else
-                    {
-                        mv[i][ver][MV_X] = initial_mv[i][ver][MV_X] - delta_mvx;
-                        mv[i][ver][MV_Y] = initial_mv[i][ver][MV_Y] - delta_mvy;
-                    }
+                    mv[i][ver][MV_X] = refined_mv[i][ver][MV_X];
+                    mv[i][ver][MV_Y] = refined_mv[i][ver][MV_Y];
                 }
             }
         }
@@ -7973,22 +7963,12 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
         }
         if (AFFINE_DMVR_memory_access(mod_info_curr, cu_width, cu_height, refined_mv))
         {
-            delta_mvx = (search_square_offset_x[dir] << 2);
-            delta_mvy = (search_square_offset_y[dir] << 2);
             for (int i = 0; i < REFP_NUM; i++)
             {
                 for (int ver = 0; ver < cp_num; ver++)
                 {
-                    if (i == 0)
-                    {
-                        mv[i][ver][MV_X] = initial_mv[i][ver][MV_X] + delta_mvx;
-                        mv[i][ver][MV_Y] = initial_mv[i][ver][MV_Y] + delta_mvy;
-                    }
-                    else
-                    {
-                        mv[i][ver][MV_X] = initial_mv[i][ver][MV_X] - delta_mvx;
-                        mv[i][ver][MV_Y] = initial_mv[i][ver][MV_Y] - delta_mvy;
-                    }
+                    mv[i][ver][MV_X] = refined_mv[i][ver][MV_X];
+                    mv[i][ver][MV_Y] = refined_mv[i][ver][MV_Y];
                 }
             }
         }
