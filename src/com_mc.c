@@ -7489,8 +7489,8 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
                     continue;
                 }
             }
-            search_range_x = (delta_x + search_offset_x[idx]);
-            search_range_y = (delta_y + search_offset_y[idx]);
+            search_range_x = (delta_x + search_offset_x[idx]) >> (4 - AFFINE_SEARCH_STEP);
+            search_range_y = (delta_y + search_offset_y[idx]) >> (4 - AFFINE_SEARCH_STEP);
             if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
             {
                 continue;
