@@ -39,8 +39,7 @@
 #if ESAO || CCSAO
 #include "com_esao.h"
 #endif 
-#include <stdio.h>
-#include "com_mc.h"
+
 /* convert DEC into DEC_CTX */
 #define DEC_ID_TO_CTX_R(id, ctx) \
     com_assert_r((id)); \

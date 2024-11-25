@@ -38,14 +38,14 @@
 #include "com_port.h"
 
 #if AFFINE_DMVR
-#define AFFINE_DMVR_ITER_COUNT             4//ÏñËØËÑË÷´ÎÊý
+#define AFFINE_DMVR_ITER_COUNT             30//ÏñËØËÑË÷´ÎÊý
 #define AFFINE_DMVR_SEARCH_RANGE           4//ËÑË÷·¶Î§
 #define AFFINE_DMVR_2TAP                   1//2-tap²åÖµ¿ª¹Ø
 #define AFFINE_DMVR_HALF_SEARCH            1//°ëÏñËØËÑË÷¿ª¹Ø
-#define AFFINE_DMVR_QUARTER_SEARCH         1//1/4ÏñËØËÑË÷¿ª¹Ø
+#define AFFINE_DMVR_QUARTER_SEARCH         0//1/4ÏñËØËÑË÷¿ª¹Ø
 #define AFFINE_DMVR_PRE                    1//Ô¤²åÖµ¿ª¹Ø
 #if !AFFINE_DMVR_PRE
-#define AFFINE_SEARCH_STEP                 2//2->1/4, 4->1
+#define AFFINE_SEARCH_STEP                 4//2->1/4, 4->1
 #endif
 #endif
 #if AFFINE_PARA

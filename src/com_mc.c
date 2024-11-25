@@ -7489,6 +7489,12 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
                     continue;
                 }
             }
+            search_range_x = (delta_x + search_offset_x[idx]);
+            search_range_y = (delta_y + search_offset_y[idx]);
+            if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
+            {
+                continue;
+            }
             for (int i = 0; i < REFP_NUM; i++)
             {
                 for (int ver = 0; ver < cp_num; ver++)
@@ -7574,20 +7580,6 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
             break;
         }
 #endif
-        search_range_x = (delta_x + search_offset_x[dir]) >> (4 - AFFINE_SEARCH_STEP);
-        search_range_y = (delta_y + search_offset_y[dir]) >> (4 - AFFINE_SEARCH_STEP);
-        if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
-        {
-            if (cost_temp[1][0])
-            {
-                min_cost = cost_temp[0][1];
-            }
-            else
-            {
-                min_cost = center_cost;
-            }
-            break;
-        }
         delta_x += search_offset_x[dir];
         delta_y += search_offset_y[dir];
         affine_dmvr_iter_count++;
@@ -7622,6 +7614,12 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
                 {
                     continue;
                 }
+            }
+            search_range_x = (delta_x + search_offset_x[idx]);
+            search_range_y = (delta_y + search_offset_y[idx]);
+            if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
+            {
+                continue;
             }
             ref_0 = preds_centre_array[REFP_0] + (delta_x + search_offset_x[idx]) + (delta_y + search_offset_y[idx]) * AFFINE_DMVR_PAD_BUFFER_WIDTH;
             ref_1 = preds_centre_array[REFP_1] - (delta_x + search_offset_x[idx]) - (delta_y + search_offset_y[idx]) * AFFINE_DMVR_PAD_BUFFER_WIDTH;
@@ -7688,20 +7686,6 @@ void process_AFFINEDMVR(COM_INFO* info, COM_MODE* mod_info_curr, COM_REFP(*refp)
             break;
         }
 #endif
-        search_range_x = (delta_x + search_offset_x[dir]);
-        search_range_y = (delta_y + search_offset_y[dir]);
-        if (search_range_x > AFFINE_DMVR_SEARCH_RANGE || search_range_y > AFFINE_DMVR_SEARCH_RANGE)
-        {
-            if (cost_temp[1][0])
-            {
-                min_cost = cost_temp[0][1];
-            }
-            else
-            {
-                min_cost = center_cost;
-            }
-            break;
-        }
         delta_x += search_offset_x[dir];
         delta_y += search_offset_y[dir];
         affine_dmvr_iter_count++;
