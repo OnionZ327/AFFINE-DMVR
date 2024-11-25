@@ -2680,9 +2680,7 @@ static double pinter_residue_rdo(ENC_CTX *ctx, ENC_CORE *core, int bForceAllZero
             }
         }
 #endif
-        int affine_dmvr_poc_c = ctx->ptr;
         com_affine_mc(&ctx->info, mod_info_curr, ctx->refp, &ctx->map, bit_depth);
-
 #if RDO_DBK
         com_set_affine_mvf(&ctx->info, mod_info_curr, ctx->refp, &ctx->map);
         is_from_mv_field = 1;
